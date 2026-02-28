@@ -19,7 +19,7 @@ $(BUILD_DIR)/rootfs-path.txt:
 
 $(OUTPUT_DIR)/head: $(TOOL_BUILD_DIR)/build_filelist $(BUILD_DIR)/rootfs-path.txt
 	mkdir -p $(OUTPUT_DIR)
-	$(TOOL_BUILD_DIR)/build_filelist -m 500 "$$(cat $(BUILD_DIR)/rootfs-path.txt)" $(OUTPUT_DIR)
+	$(TOOL_BUILD_DIR)/build_filelist -m 2000 "$$(cat $(BUILD_DIR)/rootfs-path.txt)" $(OUTPUT_DIR)
 
 $(BUILD_DIR)/jslinux/nix-9p.cfg:
 	mkdir -p $(BUILD_DIR)/jslinux
