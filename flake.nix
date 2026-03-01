@@ -69,11 +69,18 @@
 mount -t proc proc /proc
 mount -t sysfs sys /sys
 mount -t devtmpfs dev /dev 2>/dev/null || true
-export PATH="/bin:/usr/local/bin"
+exec </dev/hvc0 >/dev/hvc0 2>&1
+mount -t tmpfs tmpfs /tmp
+mount -t tmpfs tmpfs /run
 hostname nix-9p
-clear
+export HOME=/root
+export TERM=xterm-256color
+export PATH="/bin:/usr/local/bin"
+stty sane rows 24 cols 80 2>/dev/null
 cat /etc/motd
-exec /bin/bash
+while true; do
+    /bin/bash -l
+done
 INITEOF
           chmod +x $out/sbin/init
 

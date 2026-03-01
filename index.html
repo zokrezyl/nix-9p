@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nix 9p - JSLinux</title>
+    <style>
+        body { margin: 0; padding: 0; background: #000; color: #fff; font-family: sans-serif; }
+        #term_wrap { display: none; margin: 0 auto; }
+        #term_bar {
+            background: #222; padding: 4px 8px; font-size: 13px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        #net_progress { visibility: hidden; color: #ff0; font-size: 12px; }
+        #term_container { background: #000; }
+        #term_paste { position: absolute; left: -9999px; }
+    </style>
+</head>
+<body>
+    <div id="term_wrap">
+        <div id="term_bar">
+            <span>Nix 9p - Alpine Linux (x86_64)</span>
+            <span id="net_progress">downloading...</span>
+        </div>
+        <div id="term_container"></div>
+        <textarea id="term_paste"></textarea>
+    </div>
+
+    <script src="term.js"></script>
+    <script>
+        // Defaults before jslinux.js IIFE runs
+        function get_params() {
+            var params = {};
+            var query = window.location.search.substring(1);
+            if (query) {
+                var pairs = query.split("&");
+                for (var i = 0; i < pairs.length; i++) {
+                    var pair = pairs[i].split("=");
+                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+                }
+            }
+            if (!params["cpu"]) params["cpu"] = "x86_64";
+            if (!params["url"]) params["url"] = "nix-9p.cfg";
+            if (!params["mem"]) params["mem"] = "256";
+            return params;
+        }
+    </script>
+    <script src="jslinux.js"></script>
+</body>
+</html>
