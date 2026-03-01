@@ -31,8 +31,8 @@
         # Packages available in the 9p filesystem
         nixEnv = pkgs.buildEnv {
           name = "nix-9p-env";
-          paths = with pkgs; [ bash coreutils gcc gnumake ];
-          pathsToLink = [ "/bin" "/lib" "/include" "/share" ];
+          paths = with pkgs; [ bash ];
+          pathsToLink = [ "/bin" "/lib" ];
         };
 
         # Closure info for copying the nix store
@@ -87,7 +87,7 @@ INITEOF
           cat > $out/etc/motd << 'EOF'
 
 Nix 9p filesystem for JSLinux
-Packages: bash, coreutils, gcc, make
+Packages: bash
 
 EOF
         '';

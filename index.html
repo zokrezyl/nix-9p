@@ -28,22 +28,19 @@
 
     <script src="term.js"></script>
     <script>
-        // Defaults before jslinux.js IIFE runs
-        function get_params() {
-            var params = {};
-            var query = window.location.search.substring(1);
-            if (query) {
-                var pairs = query.split("&");
-                for (var i = 0; i < pairs.length; i++) {
-                    var pair = pairs[i].split("=");
-                    params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+        // Define get_params before jslinux.js overwrites it - jslinux.js will replace this,
+        // but we redirect to include params in URL if not present
+        (function() {
+            var query = window.location.search;
+            if (query.indexOf("url=") === -1) {
+                // Redirect with default parameters in URL
+                var newUrl = window.location.pathname + "?cpu=x86_64&url=nix-9p.cfg&mem=256";
+                if (query) {
+                    newUrl += "&" + query.substring(1);
                 }
+                window.location.replace(newUrl);
             }
-            if (!params["cpu"]) params["cpu"] = "x86_64";
-            if (!params["url"]) params["url"] = "nix-9p.cfg";
-            if (!params["mem"]) params["mem"] = "256";
-            return params;
-        }
+        })();
     </script>
     <script src="jslinux.js"></script>
 </body>
